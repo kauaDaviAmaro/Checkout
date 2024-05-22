@@ -1,0 +1,6 @@
+@Checkout_HostAddress = http://localhost:5094
+
+GET {{Checkout_HostAddress}}/Product/
+Accept: application/json
+
+###

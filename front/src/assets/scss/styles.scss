@@ -1,0 +1,13 @@
+@import "bootstrap/scss/bootstrap";
+
+$color-mode-type: data;
+
+@include color-mode(light) {
+  --bss: #F8F9FA;
+}
+
+@include color-mode(dark) {
+  color: white;
+  background-color: #1F2021;
+  --bss: #1F2021;
+}
