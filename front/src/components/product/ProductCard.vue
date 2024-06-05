@@ -1,8 +1,10 @@
 <script setup>
-import { useProductsStore } from '@/stores/products';
-import { formatPrice, isInCart, isDarkMode } from '@/assets/js/helpers';
+import { useProductsStore } from '@/stores/productStore';
+import { formatPrice, isDarkMode } from '@/assets/js/helpers';
+import { useCartStore } from '@/stores/cartStore';
 
 const productsStore = useProductsStore();
+const cartStore = useCartStore();
 
 defineProps({
     product: Object
@@ -26,12 +28,12 @@ defineProps({
                     <div class="price">
                         {{ formatPrice(product.price) }}
                     </div>
-                    <!-- <button
-                    @click="isInCart(product) ? productsStore.removeFromCart(product) : productsStore.addToCart(product)"
-                    :class="isInCart(product) ? 'btn-danger' : 'btn-primary'" 
+                    <button
+                    @click.prevent="cartStore.isInCart(product) ? cartStore.removeFromCart(product) : cartStore.addToCart(product)"
+                    :class="cartStore.isInCart(product) ? 'btn-danger' : 'btn-primary'" 
                     class="btn btn-primary position-absolute top-0 end-0 m-3">
-                    {{ isInCart(product) ? 'Remove from cart' : 'Add to cart' }}
-                </button> -->
+                    <i class='bx bxs-cart'></i>
+                </button>
                 </div>
             </div>
         </div>

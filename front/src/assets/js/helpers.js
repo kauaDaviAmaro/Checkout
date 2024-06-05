@@ -1,16 +1,10 @@
 import { computed } from 'vue';
-import { useProductsStore } from '@/stores/products';
+import { useProductsStore } from '@/stores/productStore';
 
 export const formatPrice = (price) => {
-    return new Intl.NumberFormat('us', { style: 'currency', currency: 'USD' }).format(price);
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
 }
 
-export const total = computed(() =>
-    useProductsStore().shoppingCart.reduce(
-        (acc, { price, quantity = 1 }) => acc + price * quantity,
-        0
-    )
-);
 
 export const isLoggedIn = () => {
     return localStorage.getItem('user') !== null;
@@ -65,8 +59,4 @@ export const isDarkMode = computed(() => {
     return localStorage.getItem('darkMode') === 'true';
 });
 
-export const isInCart = (product) => useProductsStore().shoppingCart.some(p => p.id === product.id)
 
-export const shoppingCart = computed(() => useProductsStore().shoppingCart);
-
-export const totalItems = computed(() => useProductsStore().shoppingCart.reduce((acc, { quantity = 1 }) => acc + quantity, 0));

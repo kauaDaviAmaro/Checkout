@@ -34,7 +34,7 @@ import OrderBy from '@/components/OrderBy.vue'
             </div>
         </div>
 
-        <div class="rating mb-4">
+        <!-- <div class="rating mb-4">
             <h3>Rating</h3>
             
         </div>
@@ -42,7 +42,7 @@ import OrderBy from '@/components/OrderBy.vue'
         <div class="brand">
             <h3>Brand</h3>
 
-        </div>
+        </div> -->
     </aside>
 </template>
 

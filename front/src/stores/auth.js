@@ -38,7 +38,7 @@ export const useAuthStore = defineStore("user", () => {
 
     const user = {
       email: data.email,
-      password: data.password,
+      password: data.password
     };
 
     const alertStore = useAlertStore();
@@ -69,7 +69,8 @@ export const useAuthStore = defineStore("user", () => {
     const data = getFormData(values.target);
 
     const user = {
-      name: data.name,
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.email,
       password: data.password,
     };
@@ -103,11 +104,13 @@ export const useAuthStore = defineStore("user", () => {
     };
 
     try {
-      await http.post("/contact", message);
+      await http.post("/message", message);
       alertStore.successAlert("Message sent");
     } catch (error) {
       alertStore.dangerAlert("Something went wrong, please try again");
     }
+
+    emptyForm(values.target);
   }
 
   const addPurchase = async (data) => {
@@ -122,7 +125,7 @@ export const useAuthStore = defineStore("user", () => {
 
   const editUser = async (data) => {
     const alertStore = useAlertStore();
-    
+
     const user = {
       name: data.name,
       email: data.email,

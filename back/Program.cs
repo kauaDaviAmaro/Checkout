@@ -16,12 +16,16 @@ namespace Checkout
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<CheckoutDbContext>(options =>
-                options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.Parse("8.0.30-mysql")));
+                options.UseMySql(
+                    builder.Configuration.GetConnectionString("DefaultConnection"), 
+                    ServerVersion.Parse("8.0.30-mysql")
+                ));
 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin",
-                    builder => {
+                    builder =>
+                    {
                         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                     });
             });

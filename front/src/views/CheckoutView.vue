@@ -1,15 +1,17 @@
 <script setup>
-import { useProductsStore } from '@/stores/products';
-import ContactInfo from '@/components/forms/ContactInfo.vue';
-import ShippingInfo from '@/components/forms/ShippingInfo.vue';
-import PaymentInfo from '@/components/forms/PaymentInfo.vue';
+import { useCartStore } from '@/stores/cartStore';
 import MultiStepForm from '@/components/forms/MultiStepForm.vue';
 import OrderSummary from '@/components/cart/OrderSummary.vue';
+import PaymentInfo from '@/components/forms/PaymentInfo.vue';
+import ShippingInfo from '@/components/forms/ShippingInfo.vue';
+import ContactInfo from '@/components/forms/ContactInfo.vue';
 import EmptyCart from '@/components/cart/EmptyCart.vue';
+
+const cart = useCartStore();
 </script>
 
 <template>
-  <div class="container-lg px-5 d-flex flex-column justify-content-center" v-if="!useProductsStore().isShoppingCartEmpty()">
+  <div class="container-lg px-5 d-flex flex-column justify-content-center" v-if="!cart.isEmpty">
     <div class="row">
       <div class="col-md-8 mb-4" data-aos="fade-right" data-aos-duration="1000">
         <MultiStepForm :steps="3">
@@ -22,7 +24,7 @@ import EmptyCart from '@/components/cart/EmptyCart.vue';
           <template #step-3>
             <PaymentInfo />
           </template>
-        </MultiStepForm>
+        </MultiStepForm >
       </div>
       <div class="col px-3" data-aos="fade-left" data-aos-duration="1000">
         <OrderSummary />

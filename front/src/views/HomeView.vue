@@ -1,5 +1,6 @@
 <script setup>
 import Testimonials from '@/components/general/Testimonials.vue';
+
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/shared/Loading.vue';
 
 const loading = ref(false);
 
@@ -20,45 +20,45 @@ const onSubmit = async (values) => {
         <div class="row column-gap-5 d-flex align-items-center">
             <div class="col-md-6 col-sm-12 mb-4" data-aos="fade-right" data-aos-duration="1000">
                 <div class="row">
-                    <h1>Speak to us!</h1>
-                    <p>We'd love to hear from you!</p>
+                    <h1>Fale conosco!</h1>
+                    <p>Nós adoraríamos ouvir suas sugestões!</p>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form @submit.prevent="onSubmit" novalidate>
+                        <form @submit.prevent="onSubmit" novalidate >
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="name" name="name" required
-                                    placeholder="Input your name">
+                                    placeholder="Insira seu nome" autocomplete="on">
                                 <div class="invalid-feedback">
-                                    Please provide a valid name.
+                                    Por favor, proporcione seu nome.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="topic" class="form-label">Topic</label>
                                 <input type="text" class="form-control" id="topic" name="topic" required
-                                    placeholder="Input your topic">
+                                    placeholder="Insira seu tópico">
                                 <div class="invalid-feedback">
-                                    Please provide a valid topic.
+                                    Por favor, proporcione um tópico.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required
-                                    placeholder="Input your email">
+                                    placeholder="Insira seu email" autocomplete="on">
                                 <div class="invalid-feedback">
-                                    Please provide a valid email.
+                                    Por favor, proporcione seu email.
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
+                                <label for="message" class="form-label">Mensagem</label>
                                 <textarea class="form-control" id="message" rows="3" name="message" required
-                                    placeholder="Input your message"></textarea>
+                                    placeholder="Por favor nos diga sua sugestão"></textarea>
                                 <div class="invalid-feedback">
-                                    Please provide a valid message.
+                                    Por favor, insira sua sugestão.
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Send your message</button>
+                            <button type="submit" class="btn btn-primary">Concluir sua mensagem</button>
                         </form>
                     </div>
                 </div>
@@ -70,11 +70,11 @@ const onSubmit = async (values) => {
                             <div class="col">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <i class="bx bx-chat pe-2"></i> Dive into the depths of our
-                                        mind
+                                        <i class="bx bx-chat pe-2"></i> Mergulhe nos seus pensamentos e ideias
                                     </h5>
-                                    <p class="card-text">Do you have a question, an idea, or just want to share your
-                                        thoughts? We're here to listen.</p>
+                                    <p class="card-text">
+                                        Você possui dúvidas, ideias ou algo que deseja compartilhar? Nos diga seus pensamentos que adoraríamos escustar. 
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -85,11 +85,11 @@ const onSubmit = async (values) => {
                             <div class="col">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <i class="bx bx-bulb pe-2"></i> Join our team
+                                        <i class="bx bx-bulb pe-2"></i> Junte-se ao nosso time
                                     </h5>
-                                    <p class="card-text">We're a team of innovative minds that are passionate about
-                                        creating something amazing. Let's get in touch and explore the possibilities
-                                        together.</p>
+                                    <p class="card-text">
+                                        Nós somos um time de mentes inovadoras que sempre busca inovar e novos talentos. Venha, nos contate, vamos explorar todas as possibilidades juntos. 
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -100,11 +100,12 @@ const onSubmit = async (values) => {
                             <div class="col">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <i class="bx bx-support pe-2"></i>Support and maintenance
+                                        <i class="bx bx-support pe-2"></i>Suporte e manutenção
                                     </h5>
-                                    <p class="card-text">We're here to help you with any questions or issues you may
-                                        have. We're passionate about creating great products and we're here to support
-                                        you every step of the way.</p>
+                                    <p class="card-text">
+                                        Nós estamos aqui para te ajudar com qualquer dúvida ou problema que você possa ter. Nós desejamos sempre vender e dar suporte aos nossos clientes da melhor forma possível, 
+                                        sempre buscando o melhor tratamento.
+                                    </p>
                                 </div>
                             </div>
                         </div>

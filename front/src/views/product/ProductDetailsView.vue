@@ -1,11 +1,13 @@
 <script setup>
-import { useProductsStore } from '@/stores/products';
-import { onMounted, reactive, ref } from 'vue';
+import { useProductsStore } from '@/stores/productStore';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { formatPrice } from '@/assets/js/helpers';
-import { isInCart } from '@/assets/js/helpers';
-import Loading from '@/components/Loading.vue';
+import { useCartStore } from '@/stores/cartStore';
+import Loading from '@/components/shared/Loading.vue';
 
+
+const cartStore = useCartStore();
 const productsStore = useProductsStore();
 const id = ref(useRoute().params.id);
 const product = ref({});
@@ -77,14 +79,12 @@ const quantity = ref(1);
                     <p>{{ product.description }}</p>
                 </div>
                 <div class="row my-4">
-                    <!-- <div class="col-2">
-                        <input type="number"  v-model.number="quantity" class="form-control" value="1">
-                    </div> -->
                     <div class="col">
                         <button
-                            @click="isInCart(product) ? productsStore.removeFromCart(product) : productsStore.addToCart(product)"
-                            :class="isInCart(product) ? 'btn-danger' : 'btn-primary'" class="btn btn-primary w-100">
-                            {{ isInCart(product) ? 'Remove from cart' : 'Add to cart' }}
+                            @click="cartStore.isInCart(product) ? cartStore.removeFromCart(product) : cartStore.addToCart({ ...product, quantity })"
+                            :class="cartStore.isInCart(product) ? 'btn-danger' : 'btn-primary'"
+                            class="btn btn-primary w-100">
+                            {{ cartStore.isInCart(product) ? 'Remove from cart' : 'Add to cart' }}
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
+using Checkout.DTOs;
 using Database;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
@@ -11,29 +11,89 @@ namespace Controllers
 
     public class PurchasesController
     {
-        // [Authorize]
-        // [HttpGet("{id}", Name = "GetPurchase")]
-        // public IEnumerable<Purchase> Get(CheckoutDbContext context, int id)
-        // {
-        //     IEnumerable<Purchase> purchases = context.Purchase.Include(p => p.Product)
-        //         .Include(u => u.User).ToList();
-                
-        //     return purchases;
-        // }
+        private readonly CheckoutDbContext _context;
 
-        [HttpPost(Name = "AddPurchase")]
-        public Purchase Add(CheckoutDbContext context, [FromForm] int productId, [FromForm] int userId, [FromForm] int quantity)
+        public PurchasesController(CheckoutDbContext context)
         {
-            Purchase purchase = new Purchase
+            _context = context;
+        }
+
+        [HttpGet(Name = "GetPurchases")]
+        public IEnumerable<Purchase> Get()
+        {
+            return _context.Purchases
+                .Include(p => p.User)
+                .Include(p => p.Product)
+                .Include(p => p.Address)
+                .Include(p => p.Contact)
+                .Include(p => p.Payment)
+                .ToList();
+        }
+
+        [HttpGet("{id}", Name = "GetPurchaseById")]
+        public IActionResult Get(int id)
+        {
+            return new OkObjectResult(_context.Purchases.Find(id));
+        }
+
+        [HttpPost(Name = "bulkCreate")]
+        public IActionResult BulkCreate(PurchaseListCreateDTO purchaseListDto)
+        {
+            User? user = _context.Users.Find(purchaseListDto.UserId);
+            Payment? payment = _context.Payments.Find(purchaseListDto.PaymentId);
+            Contact? contact = _context.Contacts.Find(purchaseListDto.ContactId);
+            Address? address = _context.Addresses.Find(purchaseListDto.AddressId);
+
+            if (user == null || payment == null || contact == null || address == null)
             {
-                Product = context.Products.Where(p => p.Id == productId).FirstOrDefault(),
-                User = context.Users.Where(u => u.Id == userId).FirstOrDefault(),
-                Quantity = quantity,
-                Date_Purchased = DateTime.Now
-            };
-            context.Purchase.Add(purchase);
-            context.SaveChanges();
-            return purchase;
+                return new BadRequestResult();
+            }
+
+            List<Purchase> purchases = new List<Purchase>();
+
+            foreach (var purchase in purchaseListDto.Purchases)
+            {
+                Product? product = _context.Products.Find(purchase.ProductId);
+
+                if (product == null)
+                {
+                    return new BadRequestResult();
+                }
+
+                Purchase newPurchase = new Purchase
+                {
+                    User = user,
+                    Product = product,
+                    Payment = payment,
+                    Contact = contact,
+                    Address = address,
+                    Date_Purchased = DateTime.Now,
+                    Status = Status.Pending,
+                    Quantity = purchase.Quantity
+                };
+
+                purchases.Add(newPurchase);
+            }
+
+            _context.Purchases.AddRange(purchases);
+            _context.SaveChanges();
+
+            return new OkObjectResult(purchases);
+        }
+
+
+        [HttpDelete("{id}", Name = "DeletePurchaseById")]
+        public IActionResult Delete(int id)
+        {
+            var purchase = _context.Purchases.Find(id);
+            if (purchase == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _context.Purchases.Remove(purchase);
+            _context.SaveChanges();
+            return new NoContentResult();
         }
     }
 }

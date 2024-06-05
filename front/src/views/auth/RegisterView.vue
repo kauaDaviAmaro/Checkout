@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/shared/Loading.vue';
 
 const loading = ref(false);
 
@@ -20,52 +20,59 @@ const confirmPassword = ref('');
     <Loading v-if="loading" />
     <div class="container d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-duration="1000">
         <div class="title text-center mb-3">
-            <h1>Register a new account</h1>
+            <h1>Cadastre-se aqui:</h1>
         </div>
         <form @submit.prevent="onSubmit" novalidate>
             <div class="row">
-                <div class="col mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" name="name" class="form-control" required placeholder="Insert your name">
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="firstName" class="form-label">Nome:</label>
+                    <input type="text" name="firstName" class="form-control" required placeholder="Insira seu primeiro nome">
                     <div class="invalid-feedback">
-                        Please provide a valid name.
+                        Por favor, proporcione um primeiro nome válido.
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <label for="lastName" class="form-label">Último nome:</label>
+                    <input type="text" name="lastName" class="form-control" required placeholder="Insira seu último nome">
+                    <div class="invalid-feedback">
+                        Por favor, proporcione um último nome válido
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" name="email" class="form-control" required placeholder="Insert your email">
+                    <input type="email" name="email" class="form-control" required placeholder="Insira seu email">
                     <div class="invalid-feedback" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-                        Please provide a valid email.
+                        Por favor, proporcione um email válido.
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col mb-3">
-                    <label for="password" class="form-label">Password:</label>
+                    <label for="password" class="form-label">Senha:</label>
                     <input type="password" name="password" class="form-control" required v-model="password"
-                        placeholder="Insert your password" 
+                        placeholder="Insira sua senha" 
                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
                     <div class="invalid-feedback">
-                        At least one number and one uppercase and lowercase letter, and at least 8 or more characters
+                        Deve possuir ao menos 8 caracteres, sendo um número, uma letra maiúscula e uma letra minúscula.
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label for="confirmPassword" class="form-label">Confirm password:</label>
+                    <label for="confirmPassword" class="form-label">Corfime sua senha:</label>
                     <input type="password" name="confirmPassword" class="form-control" required
-                        v-model="confirmPassword" placeholder="Confirm your password" :class="{
+                        v-model="confirmPassword" placeholder="Confirme sua senha" :class="{
                             'is-invalid': password !== confirmPassword
                         }"
                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
                     <div class="invalid-feedback">
-                        must be the same as the password
+                        Deve ser a mesma senha. 
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn w-100" :disabled="password !== confirmPassword">Register</button>
+                    <button type="submit" class="btn w-100" :disabled="password !== confirmPassword">Cadastre-se</button>
                 </div>
             </div>
         </form>

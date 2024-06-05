@@ -1,21 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace Database;
 
 public partial class CheckoutDbContext : DbContext
 {
-    public DbSet<Product> Products { get; set; }
+    // User
     public DbSet<User> Users { get; set; }
-    public DbSet<Purchase> Purchase { get; set; }
+
+    // Product
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Purchase> Purchases { get; set; }
+
+    // Message
     public DbSet<Messages> Messages { get; set; }
+
+    // Checkout
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
+
 
     public CheckoutDbContext()
     {
+        Database.EnsureCreated();
+        Database.Migrate();
     }
 
     public CheckoutDbContext(DbContextOptions<CheckoutDbContext> options)
@@ -29,12 +39,22 @@ public partial class CheckoutDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("utf8mb4_0900_ai_ci")
+            .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
+        modelBuilder.Entity<Payment>()
+            .Property(p => p.Details)
+            .HasConversion(
+                v => JsonSerializer.Serialize(
+                    v, 
+                    new JsonSerializerOptions { WriteIndented = true }
+                ),
+                v => JsonSerializer.Deserialize<Dictionary<string, string>>(
+                    v, 
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+                ) ?? new Dictionary<string, string>()
+            );
 
-        OnModelCreatingPartial(modelBuilder);
+        base.OnModelCreating(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

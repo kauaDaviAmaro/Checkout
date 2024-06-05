@@ -90,5 +90,3 @@ import 'swiper/css';
         </swiper>
     </div>
 </template>
-
-<style scoped></style>

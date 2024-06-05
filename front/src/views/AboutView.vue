@@ -1,31 +1,31 @@
 <template>
     <div class="container mt-4" data-aos="fade-up" data-aos-duration="1000">
         <div class="row">
-            <h1>About us</h1>
+            <h1>Sobre nós</h1>
         </div>
         <div class="row">
-            <p class="text-secondary">This is an about page</p>
+            <p class="text-secondary">Esta é uma página sobre nós</p>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-md-8 col-sm-12">
                 <p>
-                    Our company is dedicated to providing our customers with the best products and
-                    services. We are passionate about delivering exceptional customer satisfaction and strive to
-                    continuously
-                    improve our offerings. We believe in the importance of innovation and staying ahead of the curve,
-                    which is why we invest heavily in research and development. We are committed to building long-term
-                    relationships with our customers and are committed to sustainability and ethical business
-                    practices.
+                    Nossa empresa é dedicada a fornecer aos nossos clientes os melhores produtos e serviços. Somos
+                    apaixonados por oferecer uma satisfação excepcional aos nossos clientes e nos esforçamos para
+                    melhorar continuamente nossas ofertas. Acreditamos na importância da inovação e em estar à frente,
+                    por isso investimos fortemente em pesquisa e desenvolvimento. Estamos comprometidos em construir
+                    relacionamentos de longo prazo com nossos clientes e comprometidos com a sustentabilidade e práticas
+                    comerciais éticas.
                 </p>
                 <p>
-                    At our core, we are a team of dedicated and passionate individuals who are dedicated to driving
-                    success for our company and our customers. We are proud of our heritage and are committed to
-                    building
-                    a brighter future for all.
+                    No nosso núcleo, somos uma equipe de indivíduos dedicados e apaixonados que estão empenhados em
+                    impulsionar o sucesso da nossa empresa e de nossos clientes. Temos orgulho de nossa herança e
+                    estamos
+                    comprometidos em construir um futuro mais brilhante para todos.
                 </p>
             </div>
         </div>
     </div>
+
 </template>
 
 <style scoped>

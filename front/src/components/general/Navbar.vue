@@ -1,8 +1,12 @@
 <script setup>
-import { totalItems, isLoggedIn } from '@/assets/js/helpers';
 import { useAuthStore } from '@/stores/auth';
-import { onMounted, ref, watch, computed } from 'vue';
+import { useCartStore } from '@/stores/cartStore';
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useProductsStore } from '@/stores/productStore';
+
+const cart = useCartStore();
+const productStore = useProductsStore();
 
 const router = useRouter();
 
@@ -22,15 +26,6 @@ function setAtributesElements() {
     })
 }
 
-const search = ref("");
-
-watch(search, () => {
-    router.push(`/products/${search.value}`);
-});
-
-watch(route, () => {
-    search.value = route.params.search || '';
-});
 
 onMounted(() => {
     if (!localStorage.getItem("darkMode")) {
@@ -42,7 +37,6 @@ onMounted(() => {
 
 const auth = useAuthStore();
 
-const userName = auth.user.name.substring(0, 7);
 </script>
 
 <template>
@@ -58,16 +52,16 @@ const userName = auth.user.name.substring(0, 7);
                 </RouterLink>
                 <div class="navbar-nav">
                     <RouterLink to="/" class="nav-link">Home</RouterLink>
-                    <RouterLink to="/products" class="nav-link">Products</RouterLink>
-                    <RouterLink to="/contact" class="nav-link">Contact</RouterLink>
-                    <RouterLink to="/about" class="nav-link">About</RouterLink>
+                    <RouterLink to="/products" class="nav-link">Produtos</RouterLink>
+                    <RouterLink to="/contact" class="nav-link">Contato</RouterLink>
+                    <RouterLink to="/about" class="nav-link">Sobre</RouterLink>
                 </div>
             </div>
             <div class="d-flex" role="search">
                 <div class="icons d-flex flex-wrap align-items-center">
                     <div class="search">
                         <i class='bx bx-search'></i>
-                        <input v-model="search" type="text" class="search-click" placeholder="search here..." />
+                        <input name="search" v-model="productStore.searchQuery" type="text" class="search-click" placeholder="Pesquisar..." />
                     </div>
                     <button :class="{ 'btn-dark': !darkMode }" @click="toggleDarkMode" class="btn mx-3 ">
                         <i :class="!darkMode ? 'bx bx-moon text-light' : 'bx bxs-sun text-warning'"></i>
@@ -76,32 +70,32 @@ const userName = auth.user.name.substring(0, 7);
                         <div class="btn h-100 d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <span class="me-2" v-if="auth.isAuthenticated">
-                                {{ userName }}
+                                {{ auth.user.firstName.substring(0, 7) }}
                             </span>
                             <i class='bx bx-user'></i>
                         </div>
                         <ul class="dropdown-menu">
                             <li v-if="!auth.isAuthenticated">
-                                <RouterLink to="/login" class="dropdown-item">Login</RouterLink>
+                                <RouterLink to="/login" class="dropdown-item">Entrar</RouterLink>
                             </li>
                             <li v-if="!auth.isAuthenticated">
-                                <RouterLink to="/register" class="dropdown-item">Register</RouterLink>
+                                <RouterLink to="/register" class="dropdown-item">Cadastro</RouterLink>
                             </li>
                             <li v-if="auth.isAuthenticated">
-                                <RouterLink to="/" class="dropdown-item">Profile</RouterLink>
+                                <RouterLink to="/profile" class="dropdown-item">Perfil</RouterLink>
                             </li>
                             <li v-if="auth.isAuthenticated">
-                                <button @click="auth.logout" class="dropdown-item">Logout</button>
+                                <button @click="auth.logout" class="dropdown-item">Sair</button>
                             </li>
                         </ul>
                     </div>
                     <RouterLink to="/cart" class="position-relative">
                         <button class="btn">
                             <i class='bx bx-cart'></i>
-                            <span v-if="totalItems > 0"
+                            <span v-if="!cart.isEmpty"
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ totalItems }}
-                                <span class="visually-hidden">Items in cart</span>
+                                {{ cart.totalQuantity }}
+                                <span class="visually-hidden">Itens no carrinho</span>
                             </span>
                         </button>
                     </RouterLink>
@@ -113,14 +107,14 @@ const userName = auth.user.name.substring(0, 7);
         <div class="collapse mt-2" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <RouterLink to="/" class="nav-link">Home</RouterLink>
-                <RouterLink to="/products" class="nav-link">Products</RouterLink>
-                <RouterLink to="/contact" class="nav-link">Contact</RouterLink>
-                <RouterLink to="/about" class="nav-link">About</RouterLink>
+                <RouterLink to="/products" class="nav-link">Produtos</RouterLink>
+                <RouterLink to="/contact" class="nav-link">Contato</RouterLink>
+                <RouterLink to="/about" class="nav-link">Sobre</RouterLink>
             </div>
 
             <div class="search-icon">
                 <i class='bx bx-search'></i>
-                <input v-model="search" type="text" class="search-click" name="" placeholder="search here..." />
+                <input v-model="productStore.searchQuery" type="text" class="search-click" name="search" placeholder="Pesquisar..." />
             </div>
         </div>
     </nav>

@@ -1,15 +1,5 @@
 <script setup>
-import { useProductsStore } from '@/stores/products';
-import { useRouter } from "vue-router";
-import { shoppingCart } from '@/assets/js/helpers';
-import { onMounted } from 'vue';
 
-const productsStore = useProductsStore();
-const router = useRouter();
-
-onMounted(() => {
-    // productsStore.deleteCart();
-})
 </script>
 
 <template>
@@ -29,10 +19,10 @@ onMounted(() => {
                 </p>
             </div>
         </div>
-        <div class="row fs-5 my-3">
+        <div class="row fs-5 my-3" >
             <div class="col">
                 <div>
-                    Order number
+                    Indentificador da compra
                 </div>
                 #1234
             </div>
@@ -53,11 +43,6 @@ onMounted(() => {
                     Payment method
                 </div>
                 Cash
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <ProductList :products="shoppingCart"/>
             </div>
         </div>
     </div>

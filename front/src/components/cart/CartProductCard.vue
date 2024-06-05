@@ -1,18 +1,8 @@
 <script setup>
-import { useProductsStore } from '@/stores/products';
 import { formatPrice } from '@/assets/js/helpers';
-import { onMounted, ref } from 'vue';
+import { useCartStore } from '@/stores/cartStore';
 
-const productsStore = useProductsStore();
-
-const addProduct = (product) => {
-    productsStore.addProductQuantity(product);
-}
-
-const removeProduct = (product) => {
-    productsStore.decreaseProductQuantity(product);
-}
-
+const cart = useCartStore();
 
 defineProps({
     product: Object
@@ -41,16 +31,16 @@ defineProps({
 
                     <div class="card-text d-flex justify-content-between align-items-center mt-2">
                         <div class="remove">
-                            <button @click="productsStore.removeFromCart(product)" class="btn btn-outline-danger">
+                            <button @click="cart.removeFromCart(product)" class="btn btn-outline-danger">
                                 <i class="bx bx-trash"></i>
                             </button>
                         </div>
-                        <div class="btn-group" role="group">
-                            <button @click="removeProduct(product)" class="btn border">-</button>
+                        <div class="btn-group">
+                            <button @click="cart.decreaseQuantity(product)" class="btn border">-</button>
                             <button type="button" class="btn border-top border-bottom">
                                 {{ product.quantity ? product.quantity : 1 }}
                             </button>
-                            <button @click="addProduct(product)" :disabled="product.stock === product.quantity"
+                            <button @click="cart.increaseQuantity(product)" :disabled="product.stock === product.quantity"
                                 class="btn border">+</button>
                         </div>
                     </div>

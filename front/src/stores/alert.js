@@ -1,8 +1,6 @@
 import { defineStore } from "pinia";
 
 export const useAlertStore = defineStore("alert", () => {
-  const alert = null;
-
   const createAlert = (type, message) => {
     const buttonClose = document.createElement("button");
     buttonClose.classList.add("btn-close");

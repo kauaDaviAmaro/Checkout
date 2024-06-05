@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/shared/Loading.vue';
 
 const loading = ref(false);
 
@@ -18,25 +18,25 @@ const onSubmit = async (values) => {
     <Loading v-if="loading" />
     <div class="container d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-duration="1000">
         <div class="title text-center mb-3">
-            <h1>Login to your account</h1>
+            <h1>Faça o login de sua conta:</h1>
         </div>
         <form @submit.prevent="onSubmit" novalidate>
             <div class="row">
                 <div class="col mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" name="email" class="form-control" required placeholder="Insert your email">
+                    <input type="email" name="email" class="form-control" required placeholder="Insira seu email">
                     <div class="invalid-feedback">
-                        Please provide a valid email.
+                        Por favor, proporcione um email válido.
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="password" class="form-label">Password:</label>
+                    <label for="password" class="form-label">Senha:</label>
                     <input type="password" name="password" class="form-control" required
-                        placeholder="Insert your password">
+                        placeholder="Insira sua senha">
                     <div class="invalid-feedback">
-                        Please provide a valid password.
+                        Por favor, proporcione um email válido.
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@ const onSubmit = async (values) => {
                 </div>
             </div>
             <div class="row mt-3">
-                <p>Don't have an account yet? <RouterLink to="/register">Register</RouterLink>
+                <p>Não possui uma conta ainda? <RouterLink to="/register">Cadastre-se</RouterLink>
                 </p>
             </div>
         </form>

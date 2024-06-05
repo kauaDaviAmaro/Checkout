@@ -7,9 +7,9 @@ defineProps({
 <template>
     <div class="card m-2 rounded">
         <div class="card-body position-relative">
-            <h5 class="card-title">
+            <div class="card-title fs-5">
                 <i class="bx bxs-star" v-for="star in review.rating" :key="star"></i>
-            </h5>
+            </div>
             <p class="card-text">
                 <i class="bx bxs-quote-alt-left translate-middle-y"></i> {{ review.review }} <i
                     class="bx bxs-quote-alt-right translate-middle-y"></i>

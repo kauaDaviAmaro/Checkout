@@ -1,3 +1,4 @@
+using Checkout.DTOs;
 using Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,63 @@ namespace Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        [HttpGet(Name = "GetProducts")]
-        public IEnumerable<Product> Get(CheckoutDbContext context)
+        private readonly CheckoutDbContext _context;
+
+        public ProductController(CheckoutDbContext context)
         {
-            return context.Products.ToList();
+            _context = context;
+        }
+
+        [HttpGet(Name = "GetProducts")]
+        public IActionResult GetProducts(string? searchQuery = null, int? pageNumber = 0, int? pageSize = 10, string? sort = null)
+        {
+            IEnumerable<Product> products = _context.Products;
+            int totalProducts = products.Count();
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                products = products.Where(p => p.Title.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(sort))
+            {
+                switch (sort)
+                {
+                    case "title":
+                        products = products.OrderBy(p => p.Title);
+                        break;
+                    case "rating":
+                        products = products.OrderByDescending(p => p.Rating);
+                        break;
+                    case "highestPrice":
+                        products = products.OrderByDescending(p => p.Price);
+                        break;
+                    case "lowestPrice":
+                        products = products.OrderBy(p => p.Price);
+                        break;
+                    default:
+                        products = products.OrderBy(p => p.Id);
+                        break;
+                }
+            }
+
+            int pageNumberToUse = pageNumber ?? 0;
+            int pageSizeToUse = pageSize ?? 10;
+            int totalProductsPerPage = products.Count();
+
+            IEnumerable<Product> paginatedProducts = products
+                .Skip(pageNumberToUse * pageSizeToUse)
+                .Take(pageSizeToUse);
+
+            return new OkObjectResult(new
+            {
+                Products = paginatedProducts,
+                TotalCount = totalProducts,
+                PageNumber = pageNumberToUse + 1,
+                PageSize = pageSizeToUse,
+                TotalPages = (int)Math.Ceiling((double)totalProductsPerPage / pageSizeToUse),
+                TotalProducts = totalProducts
+            });
         }
 
         [HttpGet("{id}", Name = "SearchProduct")]
