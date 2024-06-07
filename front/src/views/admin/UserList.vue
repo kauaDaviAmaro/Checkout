@@ -32,7 +32,7 @@ onMounted(async () => {
                 <li class="breadcrumb-item active" aria-current="page">Usuários</li>
             </ol>
         </nav>
-        <div class="table-container bg-white border p-3 rounded  w-100">
+        <div class="table-container bg-white border p-3 rounded">
             <div class="table-header d-flex justify-content-between align-items-center m-3">
                 <div class="title">
                     <h2 class="fs-4 fw-bold">Lista de usuários</h2>
@@ -41,8 +41,8 @@ onMounted(async () => {
                     <i class="bx bx-plus"></i> Adicionar
                 </button>
             </div>
-            <div class="table-responsive  w-100">
-                <table class="table table-borderless bg-white table-hover w-100">
+            <div class="table-responsive">
+                <table class="table table-borderless bg-white table-hover">
                     <thead>
                         <tr class="border-bottom">
                             <th scope="col"

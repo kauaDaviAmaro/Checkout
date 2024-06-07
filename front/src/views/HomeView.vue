@@ -7,9 +7,9 @@ import Testimonials from '@/components/general/Testimonials.vue';
     <main>
         <div class="hero container d-flex justify-content-center align-items-center">
             <h1 class="text-center " data-aos="fade-up" data-aos-duration="1000">
-                Welcome to our online store! Here you can find the best deals on electronics and more.
-                <span class="text-primary">Cheap as a chinese smartphone</span> and <span
-                    class="text-success">affordable</span>!
+                Bem vindo a nosa loja! Aqui você consegue encontrar as melhores ofertas em eletrônicos e mais.
+                <span class="text-primary">Barato como um smartphone Chinês</span> e <span
+                    class="text-success">econômico</span>!
             </h1>
         </div>
 
