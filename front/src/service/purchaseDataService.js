@@ -31,6 +31,12 @@ class PurchasesDataService {
             return response.data;
         });
     }
+
+    chageStatus(purchase) {
+        return http.put(`/purchases/${purchase.id}`, purchase).then((response) => {
+            return response.data;
+        });
+    }
 }
 
 export default new PurchasesDataService();

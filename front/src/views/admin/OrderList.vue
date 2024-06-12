@@ -23,8 +23,16 @@ const deletePurchase = async (id) => {
     data.value = await purchaseDataService.getAll();
     purchases.value = data.value;
 };
-
 const loading = ref(false);
+
+const chageStatus = async (id, status) => {
+    loading.value = true
+    await purchaseDataService.chageStatus(id, status);
+    data.value = await purchaseDataService.getAll();
+    purchases.value = data.value;
+    loading.value = false
+}
+
 onMounted(async () => {
     loading.value = true;
     data.value = await purchaseDataService.getAll();
@@ -49,9 +57,6 @@ onMounted(async () => {
                 <div class="title">
                     <h2 class="fs-4 fw-bold">Lista de Pedidos</h2>
                 </div>
-                <button class="btn btn-success">
-                    <i class="bx bx-plus"></i> Adicionar
-                </button>
             </div>
             <div class="table-responsive">
                 <table class="table table-borderless bg-white table-hover">
@@ -87,8 +92,8 @@ onMounted(async () => {
                                 <button class="btn fs-4" @click="deletePurchase(purchase.id)">
                                     <i class='bx bx-trash text-danger'></i>
                                 </button>
-                                <button class="btn fs-4" @click="userDataService.editUser(user)">
-                                    <i class='bx bx-edit text-primary'></i>
+                                <button class="btn fs-4" @click="chageStatus(purchase)">
+                                    <i class='bx bxs-check-square' :class="purchase.status == 0 ? 'text-danger' : 'text-success'" ></i>
                                 </button>
                             </td>
                         </tr>

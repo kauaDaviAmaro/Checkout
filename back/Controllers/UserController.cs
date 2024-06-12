@@ -160,5 +160,12 @@ namespace Controllers
 
             return new OkResult();
         }
+
+        [HttpGet("{id}", Name = "GetUser")]
+        public User GetUser(CheckoutDbContext context, int id)
+        {
+            return context.Users
+                .FirstOrDefault(u => u.Id == id);
+        }
     }
 }

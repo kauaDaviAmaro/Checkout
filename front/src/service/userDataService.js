@@ -22,6 +22,12 @@ class UserDataService {
             .then((res) => res.json());
     }
 
+    getById(id) {
+        return http.get(`/user/${id}`).then((response) => {
+            return response.data;
+        });
+    }
+
     deleteUser(id) {
         return http.delete(`/user/${id}`);
     }

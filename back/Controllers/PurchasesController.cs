@@ -108,5 +108,19 @@ namespace Controllers
                 .Where(p => p.User.Id == id)
                 .ToList());
         }
+
+        [HttpPut("{id}", Name = "UpdateStatus")]
+        public IActionResult Update(int id)
+        {
+            var purchaseToUpdate = _context.Purchases.Find(id);
+            if (purchaseToUpdate == null)
+            {
+                return new NotFoundResult();
+            }
+
+            purchaseToUpdate.Status = purchaseToUpdate.Status == Status.Pending ? Status.Completed : Status.Pending;
+            _context.SaveChanges();
+            return new OkObjectResult(purchaseToUpdate);
+        }
     }
 }

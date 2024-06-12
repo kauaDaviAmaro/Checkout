@@ -49,9 +49,9 @@ onMounted(async () => {
                 <div class="title">
                     <h2 class="fs-4 fw-bold">Lista de usuários</h2>
                 </div>
-                <button class="btn btn-success">
+                <RouterLink to="/admin/user/add" class="btn btn-success">
                     <i class="bx bx-plus"></i> Adicionar
-                </button>
+                </RouterLink>
             </div>
             <div class="table-responsive">
                 <table class="table table-borderless bg-white table-hover">
@@ -87,9 +87,9 @@ onMounted(async () => {
                                 <button class="btn fs-4" @click="deleteUser(user.id)">
                                     <i class='bx bx-trash text-danger'></i>
                                 </button>
-                                <button class="btn fs-4" @click="userDataService.editUser(user)">
+                                <RouterLink :to="`/admin/user/edit/${user.id}`" class="btn fs-4">
                                     <i class='bx bx-edit text-primary'></i>
-                                </button>
+                                </RouterLink >
                             </td>
                         </tr>
                     </tbody>
