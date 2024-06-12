@@ -128,7 +128,7 @@ namespace Controllers
         }
 
         [HttpPost("/change-password", Name = "ChangePassword")]
-        public async Task<IActionResult> ChangePassword(CheckoutDbContext context, [FromBody] ChangePasswordRequest request)
+        public async Task<IActionResult> ChangePassword(CheckoutDbContext context, [FromBody] ChangePasswordDTO request)
         {
             User? user = context.Users.FirstOrDefault(u => u.Id == request.UserId);
             if (user == null)
@@ -144,13 +144,6 @@ namespace Controllers
             user.Password = request.NewPassword;
             await context.SaveChangesAsync();
             return new OkResult();
-        }
-
-        public class ChangePasswordRequest
-        {
-            public int UserId { get; set; }
-            public required string OldPassword { get; set; }
-            public required string NewPassword { get; set; }
         }
     }
 }

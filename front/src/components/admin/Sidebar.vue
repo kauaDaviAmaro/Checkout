@@ -18,6 +18,9 @@
                 <router-link class="link text-decoration-none text-dark mb-4" to="/admin/users">
                     <i class='bx bx-user me-3'></i> Usuários
                 </router-link>
+                <router-link class="link text-decoration-none text-dark mb-4" to="/admin/messages">
+                    <i class='bx bx-message me-3'></i> Mensagens
+                </router-link>
             </div>
         </div>
 

@@ -16,6 +16,7 @@ import Dashboard from '@/views/admin/Dashboard.vue';
 import OrderList from '@/views/admin/OrderList.vue';
 import ProductList from '@/views/admin/ProductList.vue';
 import OrdersView from '@/views/auth/OrdersView.vue';
+import MessageView from '@/views/admin/MessageList.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -28,6 +29,7 @@ const routes = [
       { path: 'users', name: 'admin-users', component: UserList },
       { path: 'orders', name: 'admin-orders', component: OrderList },
       { path: 'products', name: 'admin-products', component: ProductList },
+      { path: 'messages', name: 'messages', component: MessageView },
     ]
   },
   {

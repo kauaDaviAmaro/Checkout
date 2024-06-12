@@ -143,7 +143,7 @@ const onSubmit = async () => {
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary float-end mt-3">Atualizar</button>
+                                    <button  class="btn btn-primary float-end mt-3">Atualizar</button>
                                 </div>
                             </div>
                         </form>
@@ -167,7 +167,7 @@ const onSubmit = async () => {
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary float-end mt-3">Atualizar</button>
+                                    <button class="btn btn-primary float-end mt-3">Atualizar</button>
                                 </div>
                             </div>
                         </form>

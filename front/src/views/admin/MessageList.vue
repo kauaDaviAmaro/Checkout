@@ -1,30 +1,19 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { formatPrice } from '@/assets/js/helpers';
-import purchaseDataService from '@/service/purchaseDataService';
 import Loading from '@/components/shared/Loading.vue';
+import http from '@/service/http';
 
-const purchases = ref({});
+const messages = ref({});
 const data = ref({});
-
-const paymentMethod = (paymentMethod) => {
-    switch (paymentMethod) {
-        case "CreditCard":
-            return "Cartão de credito";
-        case "PayPal":
-            return "PayPal";
-        case "Cash":
-            return "Dinheiro";
-    }
-}
 
 const loading = ref(false);
 onMounted(async () => {
     loading.value = true;
-    data.value = await purchaseDataService.getAll();
-    purchases.value = data.value;
+    data.value = await http.get("/message");;
+    messages.value = data.value.data;
     loading.value = false
-    console.log(purchases.value);
+    console.log(messages.value);
 });
 </script>
 <template>
@@ -35,13 +24,13 @@ onMounted(async () => {
                 <li class="breadcrumb-item ">
                     <RouterLink to="/admin">Dashboard</RouterLink>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
+                <li class="breadcrumb-item active" aria-current="page">Mensagens</li>
             </ol>
         </nav>
         <div class="table-container bg-white border p-3 rounded">
             <div class="table-header d-flex justify-content-between align-items-center m-3">
                 <div class="title">
-                    <h2 class="fs-4 fw-bold">Lista de Pedidos</h2>
+                    <h2 class="fs-4 fw-bold">Lista de Mensagens</h2>
                 </div>
                 <button class="btn btn-success">
                     <i class="bx bx-plus"></i> Adicionar
@@ -52,37 +41,31 @@ onMounted(async () => {
                     <thead>
                         <tr class="border-bottom">
                             <th scope="col"
-                                v-for="column in ['#', 'Produto', 'Comprador', 'preço', 'Metodo Pagamento', 'Status']">
+                                v-for="column in ['#', 'Nome', 'Topico', 'Email', 'Mensagem', 'Ações']">
                                 {{ column }}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="align-middle" v-for="purchase in purchases">
+                        <tr class="align-middle" v-for="message in messages">
                             <th scope="row">
-                                {{ purchase.id }}
+                                {{ message.id }}
                             </th>
                             <td>
-                                {{ purchase.product.title }}
+                                {{ message.name }}
                             </td>
                             <td>
-                                {{ purchase.user.firstName }}
+                                {{ message.topic }}
                             </td>
                             <td>
-                                {{ formatPrice(purchase.product.price) }}
+                                {{ message.email }}
                             </td>
                             <td>
-                                {{ paymentMethod(purchase.payment.paymentMethod) }}
-                            </td>
-                            <td :class="purchase.status == 0 ? 'text-danger' : 'text-success'">
-                                {{ purchase.status == 0 ? "Pendente" : "Completo" }}
+                                {{ message.message }}
                             </td>
                             <td class="text-center">
                                 <button class="btn fs-4" @click="userDataService.deleteUser(user.id)">
                                     <i class='bx bx-trash text-danger'></i>
-                                </button>
-                                <button class="btn fs-4" @click="userDataService.editUser(user)">
-                                    <i class='bx bx-edit text-primary'></i>
                                 </button>
                             </td>
                         </tr>

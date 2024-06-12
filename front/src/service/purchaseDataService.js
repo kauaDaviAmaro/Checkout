@@ -19,6 +19,12 @@ class PurchasesDataService {
             return response.data;
         });
     }
+
+    getAll() {
+        return http.get("/purchases").then((response) => {
+            return response.data;
+        });
+    }
 }
 
 export default new PurchasesDataService();

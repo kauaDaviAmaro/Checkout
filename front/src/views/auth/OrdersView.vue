@@ -38,7 +38,7 @@ onMounted(async () => {
                         <h1>Meus pedidos</h1>
                     </div>
                 </div>
-                <table class="table table-responsive">
+                <table v-if="purchases.length > 0" class="table table-responsive">
                     <thead>
                         <tr>
                             <th>
@@ -74,6 +74,11 @@ onMounted(async () => {
                         </tr>
                     </tbody>
                 </table>
+                <div v-else>
+                    <p class="text-center">
+                        Nenhum pedido encontrado
+                    </p>
+                </div>
             </div>
         </div>
     </div>

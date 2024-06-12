@@ -9,6 +9,8 @@ import 'aos/dist/aos.css';
 import Aos from 'aos';
 
 import 'bootstrap';
+import Chart from 'chart.js/auto';
+
 
 
 const app = createApp(App);
