@@ -10,6 +10,7 @@ import { useCheckoutStore } from '@/stores/checkout';
 import { useProductsStore } from '@/stores/productStore';
 import { ref } from 'vue';
 import { useRouter } from "vue-router";
+import Loading from '../shared/Loading.vue';
 const router = useRouter();
 const auth = useAuthStore();
 
@@ -22,6 +23,7 @@ const user = auth.user;
 const cart = useCartStore();
 
 const checkout = useCheckoutStore();
+const loading = ref(false);
 
 const nextStep = async (steps) => {
     const form = document.querySelector(`#step-${currentStep.value}>form`);
@@ -43,6 +45,7 @@ const submitForm = async () => {
     user.phone = checkout.contact.phone;
     auth.setUser(auth.user);
 
+    loading.value = true;
     userDataService
         .updateUser(user);
 
@@ -72,6 +75,8 @@ const submitForm = async () => {
     const response = await purchaseDataService
         .createPurchase(purchase)
 
+    checkout.purchasesProducts = response;
+    loading.value = false;
     cart.clearCart();
     router.push("/success");
 }
@@ -80,6 +85,7 @@ const currentStep = ref(1);
 </script>
 
 <template>
+    <Loading v-if="loading" />
     <slot name="progress">
         {{ currentStep }} / {{ steps }} steps
         <div class="progress mb-3">

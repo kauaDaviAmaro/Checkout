@@ -5,5 +5,7 @@ export const useCheckoutStore = defineStore("checkout", () => {
     const payment = {};
     const contact = {};
 
-    return { address, payment, contact };
+    const purchasesProducts = {};
+
+    return { address, payment, contact, purchasesProducts };
 });

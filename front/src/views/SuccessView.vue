@@ -1,5 +1,21 @@
 <script setup>
+import { useCheckoutStore } from '@/stores/checkout';
 
+
+const checkout = useCheckoutStore();
+
+const products = checkout.purchasesProducts;
+
+const paymentMethod = (paymentMethod) => {
+    switch (paymentMethod) {
+        case "CreditCard":
+            return "Cartão de credito";
+        case "PayPal":
+            return "PayPal";
+        case "Cash":
+            return "Dinheiro";
+    }
+}
 </script>
 
 <template>
@@ -7,42 +23,43 @@
         <div class="row">
             <div class="col">
                 <h1>
-                    Thank you for shopping!!!
+                    Obrigado por comprar conosco !!!
                 </h1>
             </div>
         </div>
         <div class="row border-bottom">
             <div class="col">
                 <p class="mt-5">
-                    Your order has been successfully placed. You can check your order status in your account or go
-                    back to the home page.
+                    A sua encomenda foi colocada com sucesso. Pode verificar o estado da sua encomenda na sua conta ou voltar para a página inicial
                 </p>
             </div>
         </div>
-        <div class="row fs-5 my-3" >
+        <div class="row fs-5 my-3" v-for="product in products">
             <div class="col">
                 <div>
                     Indentificador da compra
                 </div>
-                #1234
+                # {{ product.id }}
             </div>
             <div class="col">
                 <div>
                     Date
                 </div>
-                12.12.2022
+                {{ new Date(product.date_Purchased).toLocaleDateString('PT-BR', { year: 'numeric', month: 'long', day: 'numeric' }) }}
             </div>
             <div class="col">
                 <div>
                     Status
                 </div>
-                <span class="badge bg-primary">Processing</span>
+                <span class="badge bg-primary">
+                    {{ product.status == 0 ? 'Pendente' : 'Entregue' }}
+                </span>
             </div>
             <div class="col">
                 <div>
                     Payment method
                 </div>
-                Cash
+                {{ paymentMethod(product.payment.paymentMethod) }}
             </div>
         </div>
     </div>

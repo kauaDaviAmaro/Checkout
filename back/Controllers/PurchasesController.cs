@@ -95,5 +95,18 @@ namespace Controllers
             _context.SaveChanges();
             return new NoContentResult();
         }
+
+        [HttpGet("user/{id}", Name = "GetPurchasesByUserId")]
+        public IActionResult GetPurchasesByUserId(int id)
+        {
+            return new OkObjectResult(_context.Purchases
+                .Include(p => p.User)
+                .Include(p => p.Product)
+                .Include(p => p.Address)
+                .Include(p => p.Contact)
+                .Include(p => p.Payment)
+                .Where(p => p.User.Id == id)
+                .ToList());
+        }
     }
 }

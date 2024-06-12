@@ -15,6 +15,7 @@ import CheckoutView from '@/views/CheckoutView.vue';
 import Dashboard from '@/views/admin/Dashboard.vue';
 import OrderList from '@/views/admin/OrderList.vue';
 import ProductList from '@/views/admin/ProductList.vue';
+import OrdersView from '@/views/auth/OrdersView.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -44,6 +45,7 @@ const routes = [
       { path: '/contact', name: 'contact', component: ContactView },
       { path: '/about', name: 'about', component: AboutView },
       { path: '/product/:id', name: 'product-details', component: ProductDetailsView },
+      { path: '/orders', name: 'order', component: OrdersView },
     ]
   }
 ]

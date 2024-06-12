@@ -1,0 +1,9 @@
+profile
+success
+login
+
+admin:
+dashboard
+produtos
+pedidos
+user

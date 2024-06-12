@@ -4,8 +4,11 @@ import { useAuthStore } from '@/stores/auth';
 import { useAlertStore } from '@/stores/alert';
 import UserDataService from '@/service/userDataService';
 import Loading from '@/components/shared/Loading.vue';
+import { useCheckoutStore } from '@/stores/checkout';
 
 const auth = useAuthStore();
+
+const checkout = useCheckoutStore();
 
 const user = reactive(auth.user);
 
@@ -105,32 +108,37 @@ const onSubmit = async () => {
                             <div class="row">
                                 <div class="col">
                                     <label for="street">Rua</label>
-                                    <input type="text" name="street" class="form-control" placeholder="[Rua]">
+                                    <input type="text" v-model="checkout.address.street" name="street"
+                                        class="form-control" placeholder="Digite sua Rua">
                                 </div>
                                 <div class="col">
                                     <label for="number">Número</label>
-                                    <input type="text" name="number" class="form-control" placeholder="[Número]">
+                                    <input type="text" name="number" v-model="checkout.address.number"
+                                        class="form-control" placeholder="Digite seu Número">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="complement">Complemento (opcional)</label>
-                                    <input type="text" name="complement" class="form-control"
-                                        placeholder="[Complemento]">
+                                    <input type="text" name="complement" v-model="checkout.address.complement"
+                                        class="form-control" placeholder="Digite o complemento">
                                 </div>
                                 <div class="col">
                                     <label for="neighborhood">Bairro</label>
-                                    <input type="text" name="neighborhood" class="form-control" placeholder="[Bairro]">
+                                    <input type="text" v-model="checkout.address.neighborhood" name="neighborhood"
+                                        class="form-control" placeholder="Digite seu Bairro">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="city">Cidade</label>
-                                    <input type="text" name="city" class="form-control" placeholder="[Cidade]">
+                                    <input type="text" v-model="checkout.address.city" name="city" class="form-control"
+                                        placeholder="Digite sua Cidade">
                                 </div>
                                 <div class="col">
                                     <label for="state">Estado</label>
-                                    <input type="text" name="state" class="form-control" placeholder="[Estado]">
+                                    <input type="text" v-model="checkout.address.state" name="state"
+                                        class="form-control" placeholder="Digite seu Estado">
                                 </div>
                             </div>
                             <div class="row">
@@ -148,12 +156,13 @@ const onSubmit = async () => {
                             <div class="row">
                                 <div class="col">
                                     <label for="password">Nova senha</label>
-                                    <input type="password" name="password" class="form-control" placeholder="[Senha]">
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="Digite sua nova senha">
                                 </div>
                                 <div class="col">
                                     <label for="confirmPassword">Confirmar a nova senha</label>
                                     <input type="password" name="confirmPassword" class="form-control"
-                                        placeholder="[Confirmar senha]">
+                                        placeholder="Digite sua nova senha">
                                 </div>
                             </div>
                             <div class="row">
