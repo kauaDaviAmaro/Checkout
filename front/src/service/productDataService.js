@@ -10,6 +10,7 @@ class ProductDataService {
             sort: sort
         };
 
+
         const data = await http.get('/Product', { params: params }).then((response) => {
             return response.data;
         });

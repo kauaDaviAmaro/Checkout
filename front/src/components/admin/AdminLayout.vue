@@ -9,7 +9,7 @@ import Navbar from './Navbar.vue';
     
     <div class="content">
         <Navbar />
-        <router-view  v-slot="{ Component }">
+        <router-view v-slot="{ Component }">
             <component :is="Component" />
         </router-view>
     </div>
@@ -17,6 +17,9 @@ import Navbar from './Navbar.vue';
 
 <style scoped>
 .content {
-    margin-left: 300px;
+    margin-top: 0px;
+    margin-left: 299px;
+    /* background-color: #1F2021; */
 }
+
 </style>

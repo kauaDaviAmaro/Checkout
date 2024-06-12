@@ -53,9 +53,9 @@ const confirmPassword = ref('');
                     <label for="password" class="form-label">Senha:</label>
                     <input type="password" name="password" class="form-control" required v-model="password"
                         placeholder="Insira sua senha" 
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+                        pattern=".{8,}">
                     <div class="invalid-feedback">
-                        Deve possuir ao menos 8 caracteres, sendo um número, uma letra maiúscula e uma letra minúscula.
+                        Deve possuir ao menos 8 caracteres.
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -64,7 +64,7 @@ const confirmPassword = ref('');
                         v-model="confirmPassword" placeholder="Confirme sua senha" :class="{
                             'is-invalid': password !== confirmPassword
                         }"
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+                        pattern=".{8,}">
                     <div class="invalid-feedback">
                         Deve ser a mesma senha. 
                     </div>

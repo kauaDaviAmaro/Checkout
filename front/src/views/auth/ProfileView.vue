@@ -39,14 +39,14 @@ const onSubmit = async () => {
             <div class="col-3 border-end fs-5">
                 <div class="m-2 my-4">
                     <RouterLink to="/profile"
-                        class="d-inline-block text-decoration-none bg-primary text-white p-2 w-100 rounded">
+                        class="d-inline-block text-decoration-none btn text-white p-2 w-100 rounded">
                         <i class='bx bx-user'></i>
                         Meu Perfil
                     </RouterLink>
                 </div>
                 <div class="m-2 ">
                     <RouterLink to="/orders"
-                        class="d-inline-block text-decoration-none bg-primary text-white p-2 w-100 rounded">
+                        class="d-inline-block text-decoration-none btn text-white p-2 w-100 rounded">
                         <i class='bx bx-shopping-bag'></i>
                         Meus Pedidos
                     </RouterLink>

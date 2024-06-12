@@ -22,7 +22,7 @@ export const useProductsStore = defineStore("products", () => {
       sort.value
     );
 
-    // TODO: error handling
+    console.log(data);
 
     products.value = data.products.map(product => {
       if (product.quantity === undefined)

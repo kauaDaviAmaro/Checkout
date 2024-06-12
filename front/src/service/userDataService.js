@@ -26,7 +26,7 @@ class UserDataService {
         return http.delete(`/user/${id}`);
     }
 
-    getUsers(searchName, searchEmail, pageNumber = 0, pageSize = 10) {
+    getUsers(searchName, searchEmail, pageNumber = 0, pageSize = 910) {
         const params = {
             pageNumber: pageNumber,
             pageSize: pageSize,

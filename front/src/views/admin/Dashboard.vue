@@ -108,7 +108,7 @@ onMounted(async () => {
                     <div class="card-body">
                         <h5 class="card-title">Total de Mensagens</h5>
                         <p class="card-text fs-5 fw-bold">
-                            {{ formatPrice(information.totalSales) }}
+                            {{ information.totalMessages }} mensagens
                         </p>
                     </div>
                 </div>
