@@ -22,6 +22,10 @@ class UserDataService {
             .then((res) => res.json());
     }
 
+    deleteUser(id) {
+        return http.delete(`/user/${id}`);
+    }
+
     getUsers(searchName, searchEmail, pageNumber = 0, pageSize = 10) {
         const params = {
             pageNumber: pageNumber,

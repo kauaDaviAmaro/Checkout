@@ -8,6 +8,16 @@ const products = ref({});
 const data = ref({});
 
 const loading = ref(false);
+
+const deleteProduct = async (id) => {
+    const confirm = window.confirm('Tem certeza que deseja excluir este produto?');
+    if (confirm) {
+        await productDataService.deleteProduct(id);
+        data.value = await productDataService.getProducts();
+        products.value = data.value.products;
+    }
+}
+
 onMounted(async () => {
     loading.value = true;
     data.value = await productDataService.getProducts(0, 100);
@@ -18,7 +28,7 @@ onMounted(async () => {
 </script>
 <template>
     <Loading v-if="loading" />
-    <main class="container w-100 m-2">
+    <main v-else class="container w-100 m-2" data-aos="fade-up" data-aos-duration="1000">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item ">
@@ -67,7 +77,7 @@ onMounted(async () => {
                                 {{ product.rating }}
                             </td>
                             <td class="text-center">
-                                <button class="btn fs-4" @click="userDataService.deleteUser(user.id)">
+                                <button class="btn fs-4" @click="deleteProduct(product.id)">
                                     <i class='bx bx-trash text-danger'></i>
                                 </button>
                                 <button class="btn fs-4" @click="userDataService.editUser(user)">

@@ -65,13 +65,12 @@ onMounted(async () => {
     information.value = data.data;
     loading.value = false
     initChart(ctx);
-    console.log(information.value);
 });
 </script>
 
 <template>
     <Loading v-if="loading" />
-    <main class="container w-100 m-2">
+    <main data-aos="fade-up" data-aos-duration="1000" class="container w-100 m-2">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item ">

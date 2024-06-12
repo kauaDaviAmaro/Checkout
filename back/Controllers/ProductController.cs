@@ -92,6 +92,22 @@ namespace Controllers
             return randomProduct;
         }
 
+        [HttpDelete("{id}", Name = "DeleteProduct")]
+        public IActionResult Delete(CheckoutDbContext context, int id)
+        {
+            Product? product = context.Products
+                .FirstOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return new NotFoundResult();
+            }
+
+            context.Products.Remove(product);
+            context.SaveChanges();
+            return new OkResult();
+        }
+
         [HttpPost(Name = "AddProduct")]
         public Product Add(CheckoutDbContext context, Product product)
         {

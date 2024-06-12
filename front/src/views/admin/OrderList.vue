@@ -18,6 +18,12 @@ const paymentMethod = (paymentMethod) => {
     }
 }
 
+const deletePurchase = async (id) => {
+    await purchaseDataService.deletePurchase(id);
+    data.value = await purchaseDataService.getAll();
+    purchases.value = data.value;
+};
+
 const loading = ref(false);
 onMounted(async () => {
     loading.value = true;
@@ -29,7 +35,7 @@ onMounted(async () => {
 </script>
 <template>
     <Loading v-if="loading" />
-    <main class="container w-100 m-2">
+    <main v-else class="container w-100 m-2" data-aos="fade-up" data-aos-duration="1000">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item ">
@@ -78,7 +84,7 @@ onMounted(async () => {
                                 {{ purchase.status == 0 ? "Pendente" : "Completo" }}
                             </td>
                             <td class="text-center">
-                                <button class="btn fs-4" @click="userDataService.deleteUser(user.id)">
+                                <button class="btn fs-4" @click="deletePurchase(purchase.id)">
                                     <i class='bx bx-trash text-danger'></i>
                                 </button>
                                 <button class="btn fs-4" @click="userDataService.editUser(user)">

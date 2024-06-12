@@ -14,6 +14,15 @@ const hideCpf = (cpf) => {
     return `***.***.***${lastTreeDigits}`
 }
 
+const deleteUser = async (id) => {
+    const confirm = window.confirm('Tem certeza que deseja excluir este usuário?');
+    if (confirm) {
+        await userDataService.deleteUser(id);
+        data.value = await userDataService.getUsers();
+        users.value = data.value.users;
+    }
+}
+
 const loading = ref(false);
 onMounted(async () => {
     loading.value = true;
@@ -21,14 +30,17 @@ onMounted(async () => {
     users.value = data.value.users;
     loading.value = false
 });
+
 </script>
 
 <template>
     <Loading v-if="loading" />
-    <main class="container w-100 m-2">
+    <main v-else class="container w-100 m-2" data-aos="fade-up" data-aos-duration="1000">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item "><RouterLink to="/admin">Dashboard</RouterLink></li>
+                <li class="breadcrumb-item ">
+                    <RouterLink to="/admin">Dashboard</RouterLink>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">Usuários</li>
             </ol>
         </nav>
@@ -72,7 +84,7 @@ onMounted(async () => {
                                 {{ user.phone ?? 'Não informado' }}
                             </td>
                             <td class="text-center">
-                                <button class="btn fs-4" @click="userDataService.deleteUser(user.id)">
+                                <button class="btn fs-4" @click="deleteUser(user.id)">
                                     <i class='bx bx-trash text-danger'></i>
                                 </button>
                                 <button class="btn fs-4" @click="userDataService.editUser(user)">

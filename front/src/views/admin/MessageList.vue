@@ -7,6 +7,12 @@ import http from '@/service/http';
 const messages = ref({});
 const data = ref({});
 
+const deleteMessage = async (id) => {
+    await http.delete(`/message/${id}`);
+    data.value = await http.get("/message");;
+    messages.value = data.value.data;
+};
+
 const loading = ref(false);
 onMounted(async () => {
     loading.value = true;
@@ -18,7 +24,7 @@ onMounted(async () => {
 </script>
 <template>
     <Loading v-if="loading" />
-    <main class="container w-100 m-2">
+    <main v-else class="container w-100 m-2" data-aos="fade-up" data-aos-duration="1000">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item ">
@@ -32,9 +38,6 @@ onMounted(async () => {
                 <div class="title">
                     <h2 class="fs-4 fw-bold">Lista de Mensagens</h2>
                 </div>
-                <button class="btn btn-success">
-                    <i class="bx bx-plus"></i> Adicionar
-                </button>
             </div>
             <div class="table-responsive">
                 <table class="table table-borderless bg-white table-hover">
@@ -64,7 +67,7 @@ onMounted(async () => {
                                 {{ message.message }}
                             </td>
                             <td class="text-center">
-                                <button class="btn fs-4" @click="userDataService.deleteUser(user.id)">
+                                <button class="btn fs-4" @click="deleteMessage(message.id)">
                                     <i class='bx bx-trash text-danger'></i>
                                 </button>
                             </td>

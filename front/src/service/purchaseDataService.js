@@ -25,6 +25,12 @@ class PurchasesDataService {
             return response.data;
         });
     }
+
+    deletePurchase(id) {
+        return http.delete(`/purchases/${id}`).then((response) => {
+            return response.data;
+        });
+    }
 }
 
 export default new PurchasesDataService();

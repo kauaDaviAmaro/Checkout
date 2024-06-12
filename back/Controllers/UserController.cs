@@ -145,5 +145,20 @@ namespace Controllers
             await context.SaveChangesAsync();
             return new OkResult();
         }
+
+        [HttpDelete("{id}", Name = "DeleteUser")]
+        public async Task<IActionResult> Delete(CheckoutDbContext context, int id)
+        {
+            User? user = context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return new NotFoundResult();
+            }
+
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
+
+            return new OkResult();
+        }
     }
 }

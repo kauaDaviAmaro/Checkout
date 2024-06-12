@@ -24,6 +24,10 @@ class ProductDataService {
 
         return data;
     }
+
+    async deleteProduct(id) {
+        await http.delete(`/Product/${id}`);
+    }
 }
 
 export default new ProductDataService();
